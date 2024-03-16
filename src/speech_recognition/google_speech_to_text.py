@@ -14,7 +14,8 @@ class GoogleSpeechToText:
         audio = speech.RecognitionAudio(content=content)
         config = speech.RecognitionConfig(
             encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-            language_code="en-US"
+            language_code="en-US",
+            audio_channel_count = 2
         )
 
         response = self.client.recognize(config=config, audio=audio)
