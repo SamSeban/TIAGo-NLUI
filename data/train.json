@@ -1,0 +1,214 @@
+[
+  {
+    "input": "go to the kitchen",
+    "output": "(navigate :from current_location :to kitchen)"
+  },
+  {
+    "input": "head to the living room",
+    "output": "(navigate :from current_location :to living_room)"
+  },
+  {
+    "input": "proceed to the bedroom",
+    "output": "(navigate :from current_location :to bedroom)"
+  },
+  {
+    "input": "walk over to the bathroom",
+    "output": "(navigate :from current_location :to bathroom)"
+  },
+  {
+    "input": "can you go to the office",
+    "output": "(navigate :from current_location :to office)"
+  },
+  {
+    "input": "please navigate to the garden",
+    "output": "(navigate :from current_location :to garden)"
+  },
+  {
+    "input": "find your way to the attic",
+    "output": "(navigate :from current_location :to attic)"
+  },
+  {
+    "input": "make your way to the basement",
+    "output": "(navigate :from current_location :to basement)"
+  },
+  {
+    "input": "stroll to the porch",
+    "output": "(navigate :from current_location :to porch)"
+  },
+  {
+    "input": "head downstairs to the cellar",
+    "output": "(navigate :from current_location :to cellar)"
+  },
+  {
+    "input": "dash to the guest room",
+    "output": "(navigate :from current_location :to guest_room)"
+  },
+  {
+    "input": "take a trip to the library",
+    "output": "(navigate :from current_location :to library)"
+  },
+  {
+    "input": "march to the sunroom",
+    "output": "(navigate :from current_location :to sunroom)"
+  },
+  {
+    "input": "step into the greenhouse",
+    "output": "(navigate :from current_location :to greenhouse)"
+  },
+  {
+    "input": "move towards the foyer",
+    "output": "(navigate :from current_location :to foyer)"
+  },
+  {
+    "input": "make a beeline for the pantry",
+    "output": "(navigate :from current_location :to pantry)"
+  },
+  {
+    "input": "saunter over to the mudroom",
+    "output": "(navigate :from current_location :to mudroom)"
+  },
+  {
+    "input": "jog to the playroom",
+    "output": "(navigate :from current_location :to playroom)"
+  },
+  {
+    "input": "skip to the workshop",
+    "output": "(navigate :from current_location :to workshop)"
+  },
+  {
+    "input": "escort me to the studio",
+    "output": "(navigate :from current_location :to studio)"
+  },
+  {
+    "input": "usher me into the conservatory",
+    "output": "(navigate :from current_location :to conservatory)"
+  },
+  {
+    "input": "show me the way to the laundry room",
+    "output": "(navigate :from current_location :to laundry_room)"
+  },
+  {
+    "input": "direct me to the nursery",
+    "output": "(navigate :from current_location :to nursery)"
+  },
+  {
+    "input": "point me towards the gym",
+    "output": "(navigate :from current_location :to gym)"
+  },
+  {
+    "input": "guide me to the garage",
+    "output": "(navigate :from current_location :to garage)"
+  },
+  {
+    "input": "take me to the pool area",
+    "output": "(navigate :from current_location :to pool_area)"
+  },
+  {
+    "input": "walk me to the home office",
+    "output": "(navigate :from current_location :to home_office)"
+  },
+  {
+    "input": "run to the dressing room",
+    "output": "(navigate :from current_location :to dressing_room)"
+  },
+  {
+    "input": "head on over to the craft room",
+    "output": "(navigate :from current_location :to craft_room)"
+  },
+  {
+    "input": "proceed directly to the lounge",
+    "output": "(navigate :from current_location :to lounge)"
+  },
+  {
+    "input": "go straight to the game room",
+    "output": "(navigate :from current_location :to game_room)"
+  },
+  {
+    "input": "navigate your way to the wine cellar",
+    "output": "(navigate :from current_location :to wine_cellar)"
+  },
+  {
+    "input": "beeline to the utility room",
+    "output": "(navigate :from current_location :to utility_room)"
+  },
+  {
+    "input": "make a dash for the storage closet",
+    "output": "(navigate :from current_location :to storage_closet)"
+  },
+  {
+    "input": "walk briskly to the art studio",
+    "output": "(navigate :from current_location :to art_studio)"
+  },
+  {
+    "input": "move swiftly to the music room",
+    "output": "(navigate :from current_location :to music_room)"
+  },
+  {
+    "input": "travel to the meditation space",
+    "output": "(navigate :from current_location :to meditation_space)"
+  },
+  {
+    "input": "navigate through to the billiard room",
+    "output": "(navigate :from current_location :to billiard_room)"
+  },
+  {
+    "input": "cross over to the spa room",
+    "output": "(navigate :from current_location :to spa_room)"
+  },
+  {
+    "input": "proceed on foot to the gallery",
+    "output": "(navigate :from current_location :to gallery)"
+  },
+  {
+    "input": "go directly to the atrium",
+    "output": "(navigate :from current_location :to atrium)"
+  },
+  {
+    "input": "please go to the second floor",
+    "output": "(navigate :from current_location :to second_floor)"
+  },
+  {
+    "input": "go quickly to the emergency exit",
+    "output": "(navigate :from current_location :to emergency_exit)"
+  },
+  {
+    "input": "can you go to the terrace?",
+    "output": "(navigate :from current_location :to terrace)"
+  },
+  {
+    "input": "let's go to the multimedia room",
+    "output": "(navigate :from current_location :to multimedia_room)"
+  },
+  {
+    "input": "go across to the fitness center",
+    "output": "(navigate :from current_location :to fitness_center)"
+  },
+  {
+    "input": "go through the hall to the main bedroom",
+    "output": "(navigate :from current_location :to main_bedroom)"
+  },
+  {
+    "input": "go over to the west garden",
+    "output": "(navigate :from current_location :to west_garden)"
+  },
+  {
+    "input": "go past the fountain to the gazebo",
+    "output": "(navigate :from current_location :to gazebo)"
+  },
+  {
+    "input": "robot, go to the front desk",
+    "output": "(navigate :from current_location :to front_desk)"
+  },
+  {
+    "input": "please go fetch something from the storeroom",
+    "output": "(navigate :from current_location :to storeroom)"
+  },
+  {
+    "input": "go and check the guest quarters",
+    "output": "(navigate :from current_location :to guest_quarters)"
+  },
+  {
+    "input": "quickly go to the loading dock",
+    "output": "(navigate :from current_location :to loading_dock)"
+  }
+]

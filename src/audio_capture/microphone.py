@@ -28,12 +28,11 @@ class AudioRecorder:
         self.stream.stop_stream()
         self.stream.close()
         self.p.terminate()
-        
+
         wf = wave.open(self.file_path, 'wb')
         wf.setnchannels(self.channels)
         wf.setsampwidth(self.p.get_sample_size(self.format))
         wf.setframerate(self.sample_rate)
         wf.writeframes(b''.join(self.frames))
         wf.close()
-        
         print("Recording stopped and file saved.")

@@ -1,0 +1,98 @@
+[
+  {
+    "input": "go towards the north corridor",
+    "output": "(navigate :from current_location :to north_corridor)"
+  },
+  {
+    "input": "go along the path to the sculpture garden",
+    "output": "(navigate :from current_location :to sculpture_garden)"
+  },
+  {
+    "input": "go inside the dome to admire the view",
+    "output": "(navigate :from current_location :to dome)"
+  },
+  {
+    "input": "go beyond the gates to the orchard",
+    "output": "(navigate :from current_location :to orchard)"
+  },
+  {
+    "input": "go near the pond in the backyard",
+    "output": "(navigate :from current_location :to backyard_pond)"
+  },
+  {
+    "input": "transition to the reception area",
+    "output": "(navigate :from current_location :to reception_area)"
+  },
+  {
+    "input": "move to the kitchen from here",
+    "output": "(navigate :from current_location :to kitchen)"
+  },
+  {
+    "input": "go investigate the sound in the boiler room",
+    "output": "(navigate :from current_location :to boiler_room)"
+  },
+  {
+    "input": "go under the archway into the courtyard",
+    "output": "(navigate :from current_location :to courtyard)"
+  },
+  {
+    "input": "shift your position to the viewing room",
+    "output": "(navigate :from current_location :to viewing_room)"
+  },
+  {
+    "input": "relocate to the breakfast nook",
+    "output": "(navigate :from current_location :to breakfast_nook)"
+  },
+  {
+    "input": "aim for the powder room",
+    "output": "(navigate :from current_location :to powder_room)"
+  },
+  {
+    "input": "kindly go to the east wing",
+    "output": "(navigate :from current_location :to east_wing)"
+  },
+  {
+    "input": "make an excursion to the sewing room",
+    "output": "(navigate :from current_location :to sewing_room)"
+  },
+  {
+    "input": "bring me to the courtyard",
+    "output": "(navigate :from current_location :to courtyard)"
+  },
+  {
+    "input": "let's get to the dining room",
+    "output": "(navigate :from current_location :to dining_room)"
+  },
+  {
+    "input": "go down to the wine room",
+    "output": "(navigate :from current_location :to wine_room)"
+  },
+  {
+    "input": "lead me to the balcony",
+    "output": "(navigate :from current_location :to balcony)"
+  },
+  {
+    "input": "venture to the rooftop",
+    "output": "(navigate :from current_location :to rooftop)"
+  },
+  {
+    "input": "advance to the reading nook",
+    "output": "(navigate :from current_location :to reading_nook)"
+  },
+  {
+    "input": "go up to the observatory",
+    "output": "(navigate :from current_location :to observatory)"
+  },
+  {
+    "input": "go now to the equipment room",
+    "output": "(navigate :from current_location :to equipment_room)"
+  },
+  {
+    "input": "go around to the back patio",
+    "output": "(navigate :from current_location :to back_patio)"
+  },
+  {
+    "input": "hurry over to the guest bathroom",
+    "output": "(navigate :from current_location :to guest_bathroom)"
+  }
+]

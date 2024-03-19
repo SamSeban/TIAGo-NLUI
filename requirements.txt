@@ -3,3 +3,5 @@ transformers
 torch
 sentencepiece
 PyAudio
+datasets
+accelerate>=0.21.0

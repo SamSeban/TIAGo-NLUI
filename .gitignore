@@ -3,3 +3,5 @@ google-credentials.json
 # Python
 __pycache__/
 *.pyc
+# T5 Model
+models/
