@@ -1,5 +1,7 @@
 # Google Cloud credentials
 google-credentials.json
+# OpenAI credentials
+openai-credentials.json
 # Python
 __pycache__/
 *.pyc

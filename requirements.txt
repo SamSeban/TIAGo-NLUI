@@ -2,6 +2,7 @@ google-cloud-speech
 transformers
 torch
 sentencepiece
+openai
 PyAudio
 datasets
 accelerate>=0.21.0

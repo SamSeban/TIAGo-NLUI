@@ -8,10 +8,10 @@ TIAGo-NLUI (Natural Language User Interface for the TIAGo robot) is a software f
 
 ## Features
 
-- **Speech Recognition**: Utilizes Google's Speech-to-Text API to accurately convert spoken language into text.
-- **Command Interpretation**: Employs the T5 transformer model for understanding the intent behind the transcribed text and mapping it to specific robot actions.
 - **Audio Capture Options**: Offers flexibility in command input through live audio recording from a microphone or processing pre-recorded audio files.
-- **Modular Design**: Facilitates easy extension and customization for different languages, commands, and actions, catering to a wide range of applications and user needs.
+- **Speech Recognition**: Utilizes Google's Speech-to-Text API to accurately convert spoken language into text.
+- **Command Interpretation**: Employs GPT4 model for understanding the intent behind the transcribed text and mapping it to a specific PDDL format problem.
+
 
 ## Getting Started
 
@@ -19,7 +19,9 @@ TIAGo-NLUI (Natural Language User Interface for the TIAGo robot) is a software f
 
 - Python 3.8 or newer
 - Access to Google Cloud Speech-to-Text API
+- Access to OpenAI GPT4 API
 - Pip for Python package installation
+- `cmake` (required for building Fast Downward)
 
 ### Installation
 
@@ -41,6 +43,28 @@ TIAGo-NLUI (Natural Language User Interface for the TIAGo robot) is a software f
    - Ensure you have a Google Cloud account with the Speech-to-Text API enabled.
    - Download your API key JSON file and place it in the project directory.
 
+4. **GPT4 API Setup**
+
+   - Ensure you have an OpenAI account with a GPT API key.
+   - Create a openai-credentials.json file with your API key in an "api-key" field and place it in the project directory.
+
+5. **Fast Downward Setup**
+
+Fast Downward is used for planning tasks within the framework. Follow these steps to set it up:
+
+- Make sure you have `cmake` installed on your system.
+- Navigate to the Fast Downward directory:
+  
+  ```
+  cd external/fast_downward
+  ```
+  
+- Build Fast Downward using the release configuration:
+  
+  ```
+  ./build.py release
+  ```
+
 ### Usage
 
 Run the `main.py` script to start the application:
@@ -49,12 +73,11 @@ Run the `main.py` script to start the application:
 python main.py
 ```
 
-Follow the on-screen prompts to choose between transcribing from an audio file or recording a new command through the microphone.
+Follow the on-screen prompts to transcribe natural language to a PDDL plan.
 
 ### Configuration
 
-- **API Key**: Update the `credentials_path` in `main.py` to the location of your Google Cloud Speech-to-Text API key JSON file.
-- **Model Selection**: The default model used for command interpretation is `t5-small`. It can be changed to any other T5 model variant as needed for your specific requirements.
+- **Google API Key**: Update the `credentials_path` in `main.py` to the location of your Google Cloud Speech-to-Text API key JSON file.
 
 
 ## License

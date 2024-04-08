@@ -20,6 +20,8 @@
         (container-state ?container - container ?state - state)
         (door-location ?door - door ?loc - location)
         (can-open ?tool - object ?target - object)
+        (empty ?container - container)
+        (full ?container - container)
     )
 
     (:action navigate
@@ -30,7 +32,6 @@
                     (at-robot ?to)
                 )
     )
-
     (:action open_door
         :parameters (?door - door ?loc - location)
         :precondition (and
@@ -78,14 +79,16 @@
                     (container-state ?container closed)
                 )
     )
-
     (:action pick
-        :parameters (?obj - object ?loc - location)
+        :parameters (?obj - object ?loc - location ?door - door)
         :precondition (and
                         (at-robot ?loc)
                         (at ?obj ?loc)
+                        (or (not (door-location ?door ?loc))
+                            (and (door-location ?door ?loc)
+                                (door-state ?door open)))
                         (hand-empty)
-                      )
+                    )
         :effect (and
                     (holding ?obj)
                     (not (at ?obj ?loc))
@@ -94,10 +97,13 @@
     )
 
     (:action place
-        :parameters (?obj - object ?loc - location)
+        :parameters (?obj - object ?loc - location ?door - door)
         :precondition (and
                         (holding ?obj)
                         (at-robot ?loc)
+                       	(or (not (door-location ?door ?loc))
+                            (and (door-location ?door ?loc)
+                                (door-state ?door open)))
                       )
         :effect (and
                     (not (holding ?obj))

@@ -2,6 +2,8 @@ import threading
 from speech_recognition.google_speech_to_text import GoogleSpeechToText
 from command_interpreter.t5 import T5CommandInterpreter
 from audio_capture.microphone import AudioRecorder
+from command_interpreter.gpt4 import GPT4CommandInterpreter
+from fast_downward_wrapper.wrapper import FastDownwardWrapper
 
 def record_audio_on_demand():
     recorder = AudioRecorder()
@@ -14,7 +16,9 @@ def record_audio_on_demand():
 def main():
     print("Select an option:\n1. Transcribe from a specific audio file\n2. Record and transcribe from the microphone\n3. Send a written command")
     option = input("Option: ")
-    
+    print("Select an interpreter:\n1. GPT4\n2. T5")
+    interpreter_opt = input("Option: ")
+
     if option == '1':
         audio_file_path = input("Enter the path to the audio file: ")
     elif option == '2':
@@ -36,9 +40,19 @@ def main():
         transcript = stt_service.transcribe(audio_file_path)
         print("Transcription: ", transcript)
 
-    interpreter = T5CommandInterpreter()
-    interpreted_command = interpreter.interpret_command(transcript)
-    print(f"Interpreted Command: {interpreted_command}")
+    if interpreter_opt == '1':
+        interpreter = GPT4CommandInterpreter()
+        prompt = interpreter.create_prompt(transcript)
+        interpreted_command = interpreter.send_prompt(prompt)
+    elif interpreter_opt == '2':
+        interpreter = T5CommandInterpreter()
+        interpreted_command = interpreter.interpret_command(transcript)
+    else:
+        print("Invalid option.")
+
+    fd_wrapper = FastDownwardWrapper()
+    solution = fd_wrapper.solve(interpreted_command)
+    print("Plan found:\n", solution)
 
 if __name__ == '__main__':
     main()
