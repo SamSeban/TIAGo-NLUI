@@ -6,3 +6,4 @@ openai
 PyAudio
 datasets
 accelerate>=0.21.0
+Flask==3.0.3

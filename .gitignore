@@ -7,3 +7,6 @@ __pycache__/
 *.pyc
 # T5 Model
 models/
+# Audio uploads folder
+uploads/*
+!uploads/.gitkeep

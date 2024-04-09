@@ -1,0 +1,56 @@
+body {
+    margin: 20px 0 0 0;
+}
+
+#response {
+    display: flex;
+}
+
+#transcript {
+    width: 20%;
+}
+
+#inputArea {
+    display: table;
+}
+
+#interpretedCommand {
+    width: 40%;
+}
+
+#solution {
+    width: 40%;
+}
+
+#commandForm {
+    width: 40%;
+    display: block;
+    margin: auto;
+}
+
+#sendbtn {
+    margin: 15px auto;
+    display: block;
+}
+
+#writtenCommand {
+    resize: none;
+}
+@media (max-width: 768px) {
+    #response {
+        flex-direction: column;
+    }
+
+    #transcript, #interpretedCommand, #solution {
+        width: 100%;
+    }
+
+    #commandForm {
+        width: 80%;
+    }
+}
+
+#saved {
+    display: none;
+    padding: 10px;
+}

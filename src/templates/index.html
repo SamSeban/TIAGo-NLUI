@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIAGo-NLUI</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/ayu-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="{{ url_for('static', filename='js/pddl-mode.js') }}"></script>
+    <script src="https://cdn.WebRTC-Experiment.com/RecordRTC.js"></script>
+</head>
+<body>
+    <form class="form-group" id="commandForm" enctype="multipart/form-data">
+        <h1>TIAGo-NLUI</h1>
+        <label for="option">Select an input option:</label>
+        <select class="form-control" name="option" id="option" onchange="optionChanged()">
+            <option value="1">Microphone</option>
+            <option value="2">Audio File</option>
+            <option value="3">Written Command</option>
+        </select>
+        <br>
+        <label for="interpreter">Select an interpreter:</label>
+        <select class="form-control" name="interpreter" id="interpreter">
+            <option value="1">GPT4</option>
+            <option value="2">T5</option>
+        </select>
+        <br>
+        <div id="inputArea"></div>
+        <button class="btn btn-primary" id="sendbtn" type="button" onclick="sendCommand()">Send command</button>
+    </form>
+    <div id="response">
+        <div id="transcript"></div>
+        <div id="interpretedCommand"></div>
+        <div id="solution"></div>
+    </div>
+    
+    <script>
+        let recordedAudioBlob = null;
+
+        function optionChanged() {
+            var option = document.getElementById("option").value;
+            var inputArea = document.getElementById("inputArea");
+            inputArea.innerHTML = '';
+            if (option == "1") {
+                // Record button (handled by backend logic)
+                inputArea.innerHTML = '<button type="button" class="btn btn-success" id="startRecord"><i class="fa-solid fa-microphone"></i> Start Recording</button><button type="button" class="btn btn-danger" id="stopRecord"><i class="fa-solid fa-stop"></i> Stop Recording</button><p id="saved">Recording saved.</p>';
+                setupRecording();
+            } else if (option == "2") {
+                // Input for audio file
+                inputArea.innerHTML = '<input class="form-control" type="file" id="audioFile" accept="audio/*">';
+            } else if (option == "3") {
+                // Textbox for written command
+                inputArea.innerHTML = '<textarea class="form-control" id="writtenCommand" placeholder="Write your natural language command here..."></textarea>';
+            }
+        }
+
+        let transcriptEditor, interpretedCommandEditor, solutionEditor;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Placeholder elements where CodeMirror editors will be attached
+            transcriptEditor = CodeMirror(document.getElementById("transcript"), {
+                mode: "pddl",
+                lineNumbers: true,
+                readOnly: true,
+                theme: "ayu-dark",
+                value: "Transcript will appear here..."
+            });
+            
+            interpretedCommandEditor = CodeMirror(document.getElementById("interpretedCommand"), {
+                mode: "pddl",
+                lineNumbers: true,
+                readOnly: true,
+                theme: "ayu-dark",
+                value: "PDDL Problem definition will appear here..."
+            });
+            
+            solutionEditor = CodeMirror(document.getElementById("solution"), {
+                mode: "pddl",
+                lineNumbers: true,
+                readOnly: true,
+                theme: "ayu-dark",
+                value: "PDDL Solution will appear here..."
+            });
+        });
+
+        function setupRecording() {
+            const startRecord = document.getElementById("startRecord");
+            const stopRecord = document.getElementById("stopRecord");
+            const saved = document.getElementById("saved");
+
+            stopRecord.style.display = "none";
+
+            startRecord.onclick = () => {
+                navigator.mediaDevices.getUserMedia({ audio: true })
+                    .then(stream => {
+                        const options = { mimeType: 'audio/webm; codecs=opus', numberOfAudioChannels: 1 };
+                        mediaRecorder = RecordRTC(stream, options);
+                        mediaRecorder.startRecording();
+                        window.currentRecorder = mediaRecorder;
+
+                        startRecord.style.display = "none";
+                        stopRecord.style.display = "block";
+                    }).catch(err => {
+                        console.error('Error accessing the microphone:', err);
+                        alert(err);
+                    });
+            };
+
+            stopRecord.onclick = () => {
+                window.currentRecorder.stopRecording(function() {
+                    recordedAudioBlob = window.currentRecorder.getBlob();
+
+                    startRecord.style.display = "block";
+                    stopRecord.style.display = "none";
+                    saved.style.display = "table-cell";
+                });
+            };
+        }
+
+        function sendCommand() {
+            const option = document.getElementById("option").value;
+            const interpreter = document.getElementById("interpreter").value;
+            const formData = new FormData();
+
+            const saved = document.getElementById("saved");
+
+            const sendButton = document.getElementById("sendbtn");
+            
+            const originalButtonText = sendButton.textContent; // Save the original button text
+
+            sendButton.textContent = "Loading...";
+        
+            formData.append('option', option);
+            formData.append('interpreter', interpreter);
+            
+            if (option === "1") {
+                formData.append('file', recordedAudioBlob, "recording.wav");
+            } else if (option === "2") {
+                const audioFile = document.getElementById("audioFile").files[0];
+                if (!audioFile) {
+                    alert("Please select an audio file.");
+                    return;
+                }
+                formData.append('file', audioFile);
+            } else if (option === "3") {
+                const commandText = document.getElementById("writtenCommand").value;
+                if (!commandText.trim()) {
+                    alert("Please enter a command.");
+                    return;
+                }
+                formData.append('commandText', commandText);
+            } else {
+                alert('This option is not yet implemented.');
+                return;
+            }
+            fetch('/process_command', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                transcriptEditor.setValue(data.transcript || "No transcript available.");
+                interpretedCommandEditor.setValue(data.interpretedCommand || "No interpreted command available.");
+                solutionEditor.setValue(data.solution || "No solution available.");
+                sendButton.textContent = originalButtonText;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                sendButton.textContent = originalButtonText;
+                saved.style.display = "none";
+            });
+        }
+        optionChanged()
+    </script>
+</body>
+</html>
